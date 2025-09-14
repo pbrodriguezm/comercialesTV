@@ -21,12 +21,10 @@ class MainActivity : AppCompatActivity() {
         session.open(runtime)
         geckoView.setSession(session)
 
-        // Configuración autoplay
         val settings = session.settings
         settings.usePrivateMode = true
         settings.mediaAutoplay = GeckoSession.Settings.AUTOPLAY_ALLOWED
 
-        // Cargar URL fija
         session.loadUri("https://atencioncolas.chatup.pe/screen")
     }
 }
