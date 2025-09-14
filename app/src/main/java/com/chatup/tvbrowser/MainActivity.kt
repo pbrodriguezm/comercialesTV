@@ -22,9 +22,10 @@ class MainActivity : AppCompatActivity() {
             this,
             GeckoRuntimeSettings.Builder()
                 .javaScriptEnabled(true)
-                .autoplay(GeckoRuntimeSettings.AUTOPLAY_ALWAYS)
+                .autoplayDefault(GeckoRuntimeSettings.AUTOPLAY_ALLOWED)
                 .build()
         )
+
 
         session = GeckoSession()
         session.open(runtime)
