@@ -23,12 +23,16 @@ jobs:
 
     - name: Build with Gradle
       run: ./gradlew assembleDebug
+    
+    - name: List build outputs
+      run: ls -R app/build/outputs
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: tvbox-browser-debug
         path: |
-          app/build/outputs/apk/debug/*.apk
-          app/build/outputs/bundle/debug/*.aab
+          app/build/outputs/apk/**/*.apk
+          app/build/outputs/bundle/**/*.aab
+
 
