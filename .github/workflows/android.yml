@@ -22,7 +22,8 @@ jobs:
       run: chmod +x gradlew
 
     - name: Build with Gradle
-      run: ./gradlew assembleDebug
+      run: ./gradlew :app:assembleDebug
+
     
     - name: List build outputs
       run: ls -R app/build/outputs
