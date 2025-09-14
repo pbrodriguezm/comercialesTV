@@ -2,8 +2,9 @@ package com.chatup.tvbrowser
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import org.mozilla.geckoview.GeckoSession
 import org.mozilla.geckoview.GeckoRuntime
+import org.mozilla.geckoview.GeckoRuntimeSettings
+import org.mozilla.geckoview.GeckoSession
 import org.mozilla.geckoview.GeckoView
 
 class MainActivity : AppCompatActivity() {
@@ -16,14 +17,18 @@ class MainActivity : AppCompatActivity() {
         geckoView = GeckoView(this)
         setContentView(geckoView)
 
-        val runtime = GeckoRuntime.create(this)
+        // Configuración del runtime con autoplay
+        val runtime = GeckoRuntime.create(
+            this,
+            GeckoRuntimeSettings.Builder()
+                .javaScriptEnabled(true)
+                .autoplay(GeckoRuntimeSettings.AUTOPLAY_ALWAYS)
+                .build()
+        )
+
         session = GeckoSession()
         session.open(runtime)
         geckoView.setSession(session)
-
-        val settings = session.settings
-        settings.usePrivateMode = true
-        settings.mediaAutoplay = GeckoSession.Settings.AUTOPLAY_ALLOWED
 
         session.loadUri("https://atencioncolas.chatup.pe/screen")
     }
