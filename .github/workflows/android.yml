@@ -35,7 +35,8 @@ jobs:
 
         export PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/build-tools/34.0.0:$PATH
 
-        # Instalar componentes necesarios (platform-tools + build-tools + platforms)
+        # ✅ Aceptar licencias automáticamente
+        yes | sdkmanager --licenses > /dev/null
         sdkmanager --sdk_root=$ANDROID_SDK_ROOT "platform-tools" "build-tools;34.0.0" "platforms;android-34"
 
         echo "== Listando APK generado =="
@@ -53,7 +54,6 @@ jobs:
 
         echo "== Permisos =="
         apkanalyzer manifest permissions $APK_PATH
-
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
