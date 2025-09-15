@@ -1,32 +1,29 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.chatup.tvbrowser">
 
-    <application
-    android:label="@string/app_name"
-    android:icon="@mipmap/ic_launcher"
-    android:banner="@drawable/app_banner"
-    android:usesCleartextTraffic="true">
-
-    <!-- Declarar compatibilidad con TV -->
+    <!-- Compatibilidad con TV -->
     <uses-feature android:name="android.software.leanback" android:required="false" />
     <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 
-    <activity
-        android:name=".MainActivity"
-        android:exported="true"
-        android:banner="@drawable/app_banner"
-        android:launchMode="singleTask"
-        android:resizeableActivity="true"
-        android:screenOrientation="landscape"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        
-        <!-- Esto hace que aparezca en el launcher de Android TV -->
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-            <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
-        </intent-filter>
-    </activity>
-</application>
+    <application
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true">
 
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:resizeableActivity="true"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+            <!-- Aparece en el launcher de TV -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
 </manifest>
