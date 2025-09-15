@@ -21,6 +21,35 @@ jobs:
     - name: Build with Gradle
       run: gradle :app:assembleDebug
 
+    - name: Analyze APK compatibility
+      if: always()
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y unzip wget
+
+        ANDROID_SDK_ROOT=$HOME/android-sdk
+        mkdir -p $ANDROID_SDK_ROOT/cmdline-tools
+        wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O tools.zip
+        unzip -q tools.zip -d $ANDROID_SDK_ROOT/cmdline-tools
+        mv $ANDROID_SDK_ROOT/cmdline-tools/cmdline-tools $ANDROID_SDK_ROOT/cmdline-tools/latest
+
+        export PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
+
+        echo "== Listando APK generado =="
+        ls -lh app/build/outputs/apk/debug/
+
+        APK_PATH=$(find app/build/outputs/apk/debug -name "*.apk" | head -n 1)
+        echo "== Usando APK: $APK_PATH =="
+
+        echo "== SDK info =="
+        apkanalyzer manifest min-sdk $APK_PATH
+        apkanalyzer manifest target-sdk $APK_PATH
+
+        echo "== Features =="
+        apkanalyzer manifest features $APK_PATH
+
+        echo "== Permisos =="
+        apkanalyzer manifest permissions $APK_PATH
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
