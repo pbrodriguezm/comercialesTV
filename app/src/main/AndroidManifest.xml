@@ -2,18 +2,31 @@
     package="com.chatup.tvbrowser">
 
     <application
-        android:label="TV Browser"
-        android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+    android:label="@string/app_name"
+    android:icon="@mipmap/ic_launcher"
+    android:banner="@drawable/app_banner"
+    android:usesCleartextTraffic="true">
 
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+    <!-- Declarar compatibilidad con TV -->
+    <uses-feature android:name="android.software.leanback" android:required="false" />
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 
-    </application>
+    <activity
+        android:name=".MainActivity"
+        android:exported="true"
+        android:banner="@drawable/app_banner"
+        android:launchMode="singleTask"
+        android:resizeableActivity="true"
+        android:screenOrientation="landscape"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        
+        <!-- Esto hace que aparezca en el launcher de Android TV -->
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+            <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+        </intent-filter>
+    </activity>
+</application>
+
 </manifest>
